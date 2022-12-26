@@ -1,6 +1,7 @@
 use std::env;
 use std::fs;
 use std::process;
+use std::error::Error;
 
 fn main() {
     //aside: run with cargo run -- "the" "./poem.txt"
@@ -16,11 +17,28 @@ fn main() {
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
     
-    let contents = fs::read_to_string(config.file_path)
-        .expect("Should have been able to read the file");
+   // not using unwrap here since this is for error handling only
+   // unwrap is useful if we plan to do something with returned object
+   if let Err(e) =  run(config) {
+       println!("Application error: {e}");
+       process::exit(1);
+   }
+}
+
+// extract this part from main as run
+// use Result to avoid panic due to 'expext' from earlier version
+// can return a dynamic error train
+// if all is well, then we return (), i.e. not really returning a type.. just side effects
+
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    // "?" will return error instead of `expect` which panics
+    let contents = fs::read_to_string(config.file_path)?;
 
     println!("With test: \n{contents}");
+
+    Ok(())
 }
+
 
 struct Config {
     query: String,
