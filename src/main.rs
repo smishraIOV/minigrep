@@ -2,14 +2,11 @@ use std::env;
 use std::fs;
 
 fn main() {
+    //aside: run with cargo run -- "the" "./poem.txt"
+
     let args: Vec<String> = env::args().collect();
 
-    //dbg!(args); // print for debugging, removed later
-    
-    let query = &args[1]; // the program's name is &arg[0]
-    let file_path = &args[2];
-
-    //run with cargo run -- "the" "./poem.txt"
+    let (query, file_path) = parse_config(&args);
     
     println!("Searching for {}", query);
     println!("In file {}", file_path);
@@ -18,4 +15,12 @@ fn main() {
         .expect("Should have been able to read the file");
 
     println!("With test: \n{contents}");
+}
+
+
+fn parse_config(args: &[String]) -> (&str, &str){
+    let query = &args[1]; // the program's name is &arg[0]
+    let file_path = &args[2];
+    
+    (query, file_path)    
 }
