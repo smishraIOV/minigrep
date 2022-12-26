@@ -24,8 +24,9 @@ struct Config {
 
 impl Config {
     fn new(args: &[String]) -> Config {
-        // using clone copies stuff.. so performance penalty. Fix with experience
-        // a working program is higher priority now than optimization
+        if args.len() < 3{
+	    panic!{"not enough arguments"};
+	}
         let query = args[1].clone(); // the program's name is &arg[0]
         let file_path = args[2].clone();
         
