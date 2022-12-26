@@ -6,7 +6,7 @@ fn main() {
 
     let args: Vec<String> = env::args().collect();
 
-    let config = parse_config(&args);
+    let config = Config::new(&args);
     
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
@@ -22,11 +22,13 @@ struct Config {
     file_path: String,
 }
 
-fn parse_config(args: &[String]) -> Config {
-    // using clone copies stuff.. so performance penalty. Fix with experience
-    // a working program is higher priority now than optimization
-    let query = args[1].clone(); // the program's name is &arg[0]
-    let file_path = args[2].clone();
-    
-    Config {query, file_path }    
+impl Config {
+    fn new(args: &[String]) -> Config {
+        // using clone copies stuff.. so performance penalty. Fix with experience
+        // a working program is higher priority now than optimization
+        let query = args[1].clone(); // the program's name is &arg[0]
+        let file_path = args[2].clone();
+        
+        Config {query, file_path }
+    }
 }
