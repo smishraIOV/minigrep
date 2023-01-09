@@ -4,7 +4,7 @@ use std::process;
 use minigrep::Config;
 
 fn main() {
-    //aside: run with cargo run -- "the" "./poem.txt"
+    //aside: run with `cargo run -- "the" "./poem.txt" `
 
     let args: Vec<String> = env::args().collect();
 
