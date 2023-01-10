@@ -29,7 +29,20 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
 
 pub fn search<'a>(query: &str, contents:  &'a str) -> Vec<&'a str>{
-    vec![]
+    let mut results = Vec::new();
+    /*
+    * Iterate through each line of the contents.
+    * Check whether the line contains our query string.
+    * If it does, add it to the list of values we’re returning.
+    * If it doesn’t, do nothing.
+    * Return the list of results that match.
+    */
+    for line in contents.lines() {
+        if line.contains(query) {
+            results.push(line);
+        }
+    }
+    results
 }
 
 #[cfg(test)]
@@ -43,6 +56,6 @@ mod  tests {
         Rust:
         safe, fast, productive.
         Pick three.";
-        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+        assert_eq!(vec!["        safe, fast, productive."], search(query, contents));
     }
 }

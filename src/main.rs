@@ -5,6 +5,7 @@ use minigrep::Config;
 
 fn main() {
     //aside: run with `cargo run -- "the" "./poem.txt" `
+    //or cargo test to run tests
 
     let args: Vec<String> = env::args().collect();
 
