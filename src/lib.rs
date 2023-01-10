@@ -22,7 +22,9 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // "?" will return error instead of `expect` which panics
     let contents = fs::read_to_string(config.file_path)?;
 
-    println!("With test: \n{contents}");
+    for line in search(&config.query, &contents){
+        println!("{line}");
+    }
 
     Ok(())
 }
